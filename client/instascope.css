@@ -1,0 +1,224 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-family: "Arial";
+    background: url('/background.png');
+}
+
+/* NAVIGATION */
+
+nav {
+    height: 40px;
+    font-size: 25px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(51,51,51,0.7);
+    z-index: 1;
+    text-shadow: 0 -1px 0 #bbb;
+    color: #eee;
+    font-family: Helvetica Neue, Helvetica, arial;
+    line-height: 25px;
+    padding-left: 25px;
+}
+
+.about {
+  margin-right: 20px;
+  margin-top: 8px;
+  color: white;
+  font-size: 16px;
+}
+
+/* INSTAGRAM */
+
+#photos-container {
+    position:absolute;
+    left:50%;
+    min-width: 50%;
+    -webkit-transition: all 500ms linear;
+    transition: all 500ms linear;
+    height: 100%;
+    overflow:scroll;
+}
+
+.photo {
+    opacity: 1.0;
+    -webkit-transition: all 500ms linear;
+    transition: all 500ms linear;
+    width:100%;
+}
+
+#zoomed {
+    opacity: 1.0;
+    width: 100%;
+    margin-left: 50px;
+}
+
+#zoomed-image {
+  display: none;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  z-index: 9000;
+  background: rgba(0,0,0,.8);
+}
+#zoomed-image img{
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  position: relative;
+  max-width: 90%;
+  max-height: 80%;
+  border:solid 2px #fff;
+}
+
+.greyed {
+    opacity: 0.05;
+}
+
+.hide {
+  opacity: 0.0;
+}
+
+.close {
+  position:fixed;
+  top: 20px;
+  opacity: .8;
+  z-index: 9999;
+  right: 20px;
+  padding:5px;
+}
+.close:hover{
+  opacity:1;
+}
+
+#social {
+  float:right;
+  margin-top:5px;
+}
+
+#login {
+  margin:2px 20px 0 0;
+}
+
+.popupPhoto {
+  height:250px;
+  width:250px;
+}
+
+.popupText {
+  position:relative;
+  text-shadow: 0 -1px 0 #bbb;
+  color: #333;
+  font-family: Helvetica Neue, Helvetica, arial;
+  font-size: 14px;
+  line-height: 25px;
+  padding: 4px 45px 4px 15px;
+  font-weight: bold;
+}
+
+.profilePicture {
+  height:30px;
+  width:30px;
+}
+
+.userInfo {
+  padding-top:9px;
+}
+.photodiv{
+     position: relative; 
+}
+
+
+@media all and (min-width: 640px) {
+  .photodiv {
+     display: inline-block;
+     width: 32%;
+  }
+}
+
+@media all and (min-device-width : 320px) and (max-device-width : 640px) {
+  .photodiv {
+     position: relative;
+     display: inline-block;
+     width: 100%;
+  }
+}
+
+.photodiv a {
+   display: none;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index:1;
+   overflow: hidden;
+}
+.photodiv a span {
+   color: white;
+   font: bold 18px/30px Helvetica, Sans-Serif;
+   letter-spacing: -1px; 
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+}
+
+/* GOOGLE MAPS */
+
+#map_canvas { 
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 50%;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin-top:40px;
+}
+
+#searchTextField {
+  margin: 5px 0 5px 50px;
+}
+.no-photos {
+  color:white;
+  margin: 50px 0px 0px 30px
+}
+
+.caption {
+  display: none;
+  position: absolute;
+  top: 0; 
+  left: 2%; 
+  width: 100%; 
+  z-index:1;
+  margin-top:15%;
+  padding: 10px;
+}
+
+.caption a{
+  display:inline;
+  width: 90%;
+}
+
+.caption a span {
+  position: relative;
+  text-shadow: 0 -1px 0 #bbb;
+  color: #eee;
+  font-family: Helvetica Neue, Helvetica, arial;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  background: none;
+}
+
+.tip {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+}
