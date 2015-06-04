@@ -13,11 +13,6 @@
     </script>
 </head>
 
-<body>
-    {{> nav}}
-    {{> content}}
-</body>
-
 <template name="nav">
     <nav>
         <span>Instascope</span>
@@ -25,7 +20,7 @@
 
         <span class="tip">Click on the map or use the search</span>
         <ul class="pull-right" style="margin-right:5%; margin-top:3px; font-size: 18px">
-          {{> loginButtons}}
+          {{> atNavButton}}
       </ul>
       <div id="social">
         <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>

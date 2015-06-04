@@ -36,9 +36,6 @@ Meteor.startup(function(){
   $('#zoomed-image').hide();
   Session.set('zoomed', '');
 
-  // Banner!
-  getTwitter();
-
 });
 
 Deps.autorun(function(){
@@ -170,6 +167,64 @@ function placeInstaMarkers(data, map) {
   };
 }
 
+// This funciton creates new InfoWindows for each photo.
+function addInfoWindow(data, instaMarker, i){
+  var username = data[i].user.username;
+  var caption;
+  if ( !data[i].caption ) {
+    caption = "No Comment.."
+  } else {
+    caption = data[i].caption.text;
+  }
+  var infowindow = new google.maps.InfoWindow({
+    content:
+    '<img class="popupPhoto" src="'+ data[i].images.standard_resolution.url +'"/><br/>'+
+    '<div class="userInfo">'+
+      '<a href="http://instagram.com/'+ username +'" target="_blank">'+
+        '<img class="profilePicture" src="'+ data[i].user.profile_picture +'"/>'+
+        '<span class="popupText">@'+ username +'</span>'+
+      '</a>' +
+      '<p class="caption">'+ caption + '</p>' +
+    '</div>'
+  });
+  infowindow.setOptions({maxWidth:250});
+  infowindow.setOptions({maxHeight:300})
+
+  google.maps.event.addListener(instaMarker, 'click', function() {
+    deleteInstaMarkers(this);
+    infowindow.open(map, this);
+    instaArray.push(instaMarker);
+  });
+}
+
+// Assures only one Instagram marker is open on the map at a time.
+function deleteInstaMarkers() {
+  if (instaArray) {
+    for (i in instaArray){
+      instaArray[i].setMap(null)
+    }
+  }
+  instaArray.length = 0;
+}
+
+// Places a single red marker when the user clicks anywhere on the map.
+function placeClickMarker(location) {
+  deleteOverlays();
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markersArray.push(marker);
+}
+
+// Assures only one click marker is on the screen at a time, called by placeClickMarker.
+function deleteOverlays() {
+  if (markersArray) {
+    for (i in markersArray) {
+      markersArray[i].setMap(null);
+    }
+  markersArray.length = 0;
+  }
 }
 
 //HERE ARE MY INSTAGRAM HELPER FUNCTIONS:
@@ -187,7 +242,7 @@ function jsonLoad (json) {
   } else{
     // 200 - things went well
     // else - <something> went wrong, but we're not really sure what.. it could be anything
-    alert("Something went wrong trying to talk to instagram!");
+    alert("Something went wrong trying to talk to Instagram!");
     console.log(json);
     };
 }
@@ -205,5 +260,5 @@ var getNewPhotos = function (data) {
       }
     }
   });
-  // $('#bubbles').show
+
 };
