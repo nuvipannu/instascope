@@ -42,9 +42,9 @@ Deps.autorun(function(){
   if(Meteor.user()){
     Meteor.call("getAccessToken", function(error, accessToken){
        ACCESSTOKEN = accessToken;
-    })
+    });
   }
-})
+});
 
 
 // Helper function to push photos to template scope
@@ -98,12 +98,19 @@ Template.content.events({
   }
 });
 
+Template.nav.events({
+  'change #searchByHashtag': function(event) {
+    var hashtag = $(event.target).val();
+    getNewPhotos({tagName: hashtag});
+  }
+});
+
 //HERE ARE MY GOOGLE MAPS HELPER FUNCTIONS:
 
 // Converts HTML5 geolocation data into a google maps location object
 var newLatLng = function (success) {
    return new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
-}
+};
 
 // Takes a google maps location object (latLng), creates the map and centers it at latLng.
 function createMap(latLng) {
@@ -128,7 +135,7 @@ function addClickListener() {
 }
 
 /* addAutocomplete uses the Google Maps API to create a search field, process the input to get
-   the Lat & Lng for the selected location.  It passes the new latLng to getNewPhotos and 
+   the Lat & Lng for the selected location.  It passes the new latLng to getNewPhotos and
    set map center and place new marker */
 function addAutocomplete() {
   var input = document.getElementById('searchTextField');
@@ -232,28 +239,68 @@ function deleteOverlays() {
 // Processses the json data on ajax success
 function jsonLoad (json) {
 
-  console.log('jsonLoad was called with arguments', arguments)
+  console.log('jsonLoad was called with arguments', arguments);
 
   if (json.meta.code == 200) {
     var show = json.data;
     placeInstaMarkers(show, map);
     Session.set('photoset', show);
     $(event.target.children[1]).hide();
-  } else{
+  } else {
     // 200 - things went well
     // else - <something> went wrong, but we're not really sure what.. it could be anything
     alert("Something went wrong trying to talk to Instagram!");
     console.log(json);
-    };
+  }
+}
+function jsonTagLoad (json) {
+
+  console.log('jsonTagLoad was called with arguments', arguments);
+
+  if (json.meta.code == 200) {
+    var show = json.data;
+    // placeInstaMarkers(show, map);
+    Session.set('photoset', show);
+    $(event.target.children[1]).hide();
+  } else {
+    // 200 - things went well
+    // else - <something> went wrong, but we're not really sure what.. it could be anything
+    alert("Something went wrong trying to talk to Instagram!");
+    console.log(json);
+  }
 }
 
 // Basic ajax call to instagram API, searching for photos within specified distance of passed in place
 var getNewPhotos = function (data) {
+
+  console.log(data);
+
+  var url,
+      dist,
+      success,
+      query = {
+        order: '-createdAt',
+        client_id: INSTAID,
+        access_token: ACCESSTOKEN
+      };
+
+  if (data.lat && data.lng && (data.distance || data.dist)) {
+    dist = data.distance || data.dist;
+    url = 'https://api.instagram.com/v1/media/search?callback=?';
+    query = _(query).extend({lat: data.lat, lng: data.lng, distance: dist});
+    success = jsonLoad;
+  } else if (data.tagName) {
+    url = 'https://api.instagram.com/v1/tags/' + data.tagName + '/media/recent?callback=?';
+    success = jsonTagLoad;
+  } else {
+    throw new Error("You must provide either a location or a hashtag");
+  }
+
   $.ajax({
-    url: 'https://api.instagram.com/v1/media/search?callback=?',
+    url: url,
     dataType: 'json',
-    data: {'order': '-createdAt', lat: data.lat, lng: data.lng, distance:data.dist, client_id: INSTAID, access_token: ACCESSTOKEN},
-    success: jsonLoad,
+    data: query,
+    success: success,
     statusCode: {
       500: function () {
         alert('Sorry, service is temporarily down.');

@@ -28,7 +28,7 @@
               {{loginButtons}}
             </ul>
             <div id="social">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-via="instascope" data-size="large" data-hashtags="instascope" data-text="Check out what's going on in any neighborhood or location via instagram.">Tweet</a>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="instascope" data-size="large" data-hashtags="instascope" data-text="Check out what's going on in any neighborhood or location via Instagram.">Tweet</a>
             </div>
     </nav>
 </template>
