@@ -11,73 +11,23 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
+
+    <script>
+    window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+  </script>
 </head>
-
-<template name="nav">
-    <nav>
-        <span>Instascope</span>
-        <input id="searchTextField" type="text" size="60">
-           or...
-        <input id="searchByHashtag" type="text" size="60" placeholder="Enter a hashtag">
-
-        <span class="tip">Click on the map or use the search</span>
-        <ul class="pull-right" style="margin-right:5%; margin-top:3px; font-size: 18px">
-          {{> atNavButton}}
-      </ul>
-      <div id="social">
-        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-    </div>
-</nav>
-</template>
-
-<template name="content">
-    <div id="container">
-        {{> instagram}}
-        {{> map}}
-    </div>
-</template>
-
-<template name="instagram">
-    <div id="photos-container">
-        {{#each photoset}}
-        <div class="photodiv" >
-            <img class="photo" src="{{ images.low_resolution.url }}" alt="">
-            <a href="http://instagram.com/{{ user.username }}" target="_blank">
-                <span>
-                    <img class="profilePicture" src="{{user.profile_picture}}" />
-                    @{{ user.username }}
-                </span>
-                <br/>
-            </a>
-            <span class="caption">
-                {{#if caption}}
-                <a href="{{link}}" target="_blank">
-                    <span>{{ caption.text }}</span>
-                </a>
-                {{else}}
-                <a href="{{link}}" target="_blank">
-                    <span>No Comment...</span>
-                </a>
-                {{/if}}
-            </span>
-            <span class="social-coffee">
-                <div class="twitter">
-                    <a href="https://twitter.com/home?status={{link}} via @Instascope http://instascope.meteor.com" target="_blank">
-                        <div class="twitter-button"></div>
-                    </a>
-                </div>
-                <div class="facebook">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{link}}&t=via http://instascope.meteor.com" target="_blank">
-                        <div class="fb-button"></div>
-                    </a>
-                </div>
-            </span>
-        </div>
-        {{/each}}
-        <span id="zoomed-image"></span>
-    </div>
-</template>
-
-<template name="map">
-  <div id="map_canvas"></div>
-</template>

@@ -1,0 +1,8 @@
+<template name="instagram">
+    <div id="photos-container">
+        {{#each photoset}}
+          {{> photo}}
+        {{/each}}
+        <span id="zoomed-image"></span>
+    </div>
+</template>

@@ -1,0 +1,16 @@
+<template name="caption">
+  <span class="caption">
+      {{#if caption}}
+        <a href="{{link}}" target="_blank">
+          {{#if timestamp}}
+            <span>{{ timestamp }}: </span>
+          {{/if}}
+          <span>{{ caption.text }}</span>
+        </a>
+      {{else}}
+        <a href="{{link}}" target="_blank">
+            <span>No Comment...</span>
+        </a>
+      {{/if}}
+  </span>
+</template>

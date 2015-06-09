@@ -1,0 +1,25 @@
+<template name="photo">
+  <div class="photodiv" >
+      <img class="photo" src="{{ images.low_resolution.url }}" alt="">
+      <a href="http://instagram.com/{{ user.username }}" target="_blank">
+          <span>
+              <img class="profilePicture" src="{{user.profile_picture}}" />
+              @{{ user.username }}
+          </span>
+          <br/>
+      </a>
+      {{> caption}}
+      <span class="social-coffee">
+          <div class="twitter">
+              <a href="https://twitter.com/home?status={{link}} via @Instascope http://instascope.meteor.com" target="_blank">
+                  <div class="twitter-button"></div>
+              </a>
+          </div>
+          <div class="facebook">
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{link}}&t=via http://instascope.meteor.com" target="_blank">
+                  <div class="fb-button"></div>
+              </a>
+          </div>
+      </span>
+  </div>
+</template>

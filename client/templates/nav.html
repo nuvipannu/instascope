@@ -1,0 +1,24 @@
+<template name="nav">
+    <nav>
+      <span>Instascope</span>
+      <span class="search-by-hashtag">
+        <input id="searchByHashtag" type="text" size="60" placeholder="Enter a hashtag">
+        <button class='btn btn-primary search-switch'>Switch to Location Search</button>
+      </span>
+      <span class="search-by-location">
+        <input id="searchTextField" type="text" size="60">
+        <button class='btn btn-success search-switch'>Switch to Hashtag Search</button>
+      </span>
+      <span class="tip">Click on the map or use the search</span>
+      <ul class="pull-right" style="margin-right:5%; margin-top:3px; font-size: 18px">
+        {{> atNavButton}}
+      </ul>
+      <div id="social">
+        <a class="twitter-share-button"
+          href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button%3Fsrc%3Dtwitter"
+          data-counturl="http://instascope.meteor.com">
+          Tweet
+        </a>
+      </div>
+  </nav>
+</template>
